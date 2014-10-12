@@ -1,4 +1,8 @@
 *.class
+*.xml
+*.html
+*.log
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -7,6 +11,21 @@
 *.jar
 *.war
 *.ear
+
+# report files #
+#############
+.log
+BaublebarTest/test-output/*
+BaublebarTest/.classpath
+
+# IDE files #
+#############
+.buildpath
+.project
+.classpath
+.settings/*
+sftp-config.json
+*.un~
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
