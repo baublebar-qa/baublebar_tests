@@ -66,7 +66,9 @@ public class TestBase {
 			if(CONFIG.getProperty("browser").equals("Mozilla"))
 				driver=new FirefoxDriver();
 			else if(CONFIG.getProperty("browser").equals("IE")){
-				File file = new File("C:\\IEDriverServerWin32\\IEDriverServer_Win32_2.33.0\\IEDriverServer.exe");
+				String iePath = System.getProperty("user.dir")+"/IEDriverServer.exe";
+				System.out.println(iePath);
+				File file = new File(iePath);
 				System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
 				DesiredCapabilities capabilities = new DesiredCapabilities();
 				//capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
