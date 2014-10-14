@@ -1,4 +1,4 @@
-?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?This file gets excuted as you run Ant .This file includes list of all the packeges of Cosmos project?>
 <?If any new package gets added, make sure you add it here in this file?>
 <?Change value of property name Src and Dest according to your source directory and destination directory?>
