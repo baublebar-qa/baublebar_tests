@@ -1,0 +1,68 @@
+?xml version="1.0" encoding="UTF-8"?>
+<?This file gets excuted as you run Ant .This file includes list of all the packeges of Cosmos project?>
+<?If any new package gets added, make sure you add it here in this file?>
+<?Change value of property name Src and Dest according to your source directory and destination directory?>
+<project name="Baublebar_Test" default="makeXSLTReports" basedir=".">
+	<!-- set global properties for this build -->
+	<property name="currentdate" value="0829"/>
+	<property name="ws.home" value="${basedir}"/>
+	<property name="Src" value="src"/>
+	<property name="Out" value="output"/>
+	<property name="ws.jars" value= "${basedir}/jarfiles"/>
+	
+	<target name="setClassPath" unless = "test.classpath">		
+		<path id="classpath_jars">
+			  <fileset dir="${ws.jars}" includes ="*.jar"/>
+			<fileset dir="${ws.jars}"/>
+			</path>		
+		<pathconvert pathsep= ":" 
+			property="test.classpath"
+			refid = "classpath_jars"></pathconvert>
+	</target>
+	
+	<!--target name="setClassPath">
+		<path id = "test.classpath">
+		<pathelement location = "${test.classpath}"/>
+			
+		<fileset dir="${ws.jars}" includes ="*.jar"/>
+		<fileset dir="${ws.jars}"/>
+		</path>		
+			
+	</target-->
+	
+	<target name="init" depends="setClassPath" >
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${Out}"/>		
+	</target>
+	
+	<target name="compile" depends="init"   description="compile the source ">
+		<!-- Compile the java code from ${Src} into ${Out} -->
+		<javac srcdir="${Src}" destdir="${Out}" classpath="${test.classpath}"  debug="on" fork="true" memoryInitialSize="512M" memoryMaximumSize="512M" />
+        <!--copy file = "c:jarfiles/log4j.properties" todir ="output/"/--> 
+		<copy file = "${basedir}/src/log4j.properties" todir ="output/"/> 
+	</target>	
+	
+	<target name="run" depends="compile">
+		<taskdef resource="testngtasks" classpath="${test.classpath}:${Out}${log4j}" />
+		<testng  classpath = "${test.classpath}:${Out}:${log4j}" suitename="AccountingTest" >
+		<xmlfileset dir="${ws.home}" includes="testng.xml"/>
+		</testng>
+		<echo message="Done"></echo>
+	</target>	
+	
+	<target name="makeXSLTReports" depends="run">        
+		<delete dir="${basedir}/testng-xslt"></delete> 
+		<mkdir dir="${basedir}/testng-xslt"></mkdir>   
+		<xslt in="${basedir}/test-output/testng-results.xml" style="${basedir}/testng-xslt-1.1.2-master/src/main/resources/testng-results.xsl" out="${basedir}/testng-xslt/index.html">             
+		<param expression="${basedir}/testng-xslt" name="testNgXslt.outputDir" />      
+		<param expression="true" name="testNgXslt.sortTestCaseLinks" />             
+		<param expression="FAIL,SKIP,PASS,CONF,BY_CLASS" name="testNgXslt.testDetailsFilter" />    
+		<param expression="true" name="testNgXslt.showRuntimeTotals" />      
+		<classpath refid="classpath_jars"> </classpath>        
+		</xslt>     
+	</target> 
+		    
+	
+</project>
