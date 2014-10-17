@@ -2,7 +2,7 @@
 <?This file gets excuted as you run Ant .This file includes list of all the packeges of Cosmos project?>
 <?If any new package gets added, make sure you add it here in this file?>
 <?Change value of property name Src and Dest according to your source directory and destination directory?>
-<project name="Baublebar_Test" default="makeXSLTReports" basedir=".">
+<project name="BaublebarTest" default="makeXSLTReports" basedir=".">
 	<!-- set global properties for this build -->
 	<property name="currentdate" value="0829"/>
 	<property name="ws.home" value="${basedir}"/>
@@ -25,7 +25,7 @@
 		<pathelement location = "${test.classpath}"/>
 			
 		<fileset dir="${ws.jars}" includes ="*.jar"/>
-		<fileset dir="${ws.jars}"/>
+		<fileset dir="${ws.jars}"/>	
 		</path>		
 			
 	</target-->
@@ -46,7 +46,7 @@
 	
 	<target name="run" depends="compile">
 		<taskdef resource="testngtasks" classpath="${test.classpath}:${Out}${log4j}" />
-		<testng  classpath = "${test.classpath}:${Out}:${log4j}" suitename="AccountingTest" >
+		<testng  classpath = "${test.classpath}:${Out}:${log4j}" suitename="BaublebarTest" >
 		<xmlfileset dir="${ws.home}" includes="testng.xml"/>
 		</testng>
 		<echo message="Done"></echo>
